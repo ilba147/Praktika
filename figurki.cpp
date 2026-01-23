@@ -11,7 +11,9 @@ int main() {
 
     cout << "Программа - \"Геометрические фигуры\"\n\n";
     cout << "1) Линия\n";
-    cout << "2) Квадрат\n\n";
+    cout << "2) Квадрат\n";
+    cout << "3) Прямоугольник\n";
+    cout << "4) Крест\n\n";
     cout << "Выберите фигуру: ";
     cin >> choice;
 
@@ -22,15 +24,11 @@ int main() {
         cout << "Текстура: ";
         cin >> texture;
 
-
         for (int i = 0; i < size; i++) {
             cout << texture << " ";
         }
         cout << "\n";
     }
-
-
-
 
     else if (choice == 2) {
         cout << "\n\nФигура: \"Квадрат\"\n\n";
@@ -47,7 +45,6 @@ int main() {
         cout << "\n\nРезультат:\n\n";
 
         if (type == 1) {
-
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     cout << texture << " ";
@@ -56,7 +53,6 @@ int main() {
             }
         }
         else if (type == 2) {
-
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
@@ -70,8 +66,9 @@ int main() {
             }
         }
     }
+
     else if (choice == 3) {
-        cout << "\n\nФигура: \"Прямогуольник\"\n\n";
+        cout << "\n\nФигура: \"Прямоугольник\"\n\n";
         cout << "1) Заполненный\n";
         cout << "2) Пустой\n\n";
         cout << "Выберите тип: ";
@@ -87,7 +84,6 @@ int main() {
         cout << "\n\nРезультат:\n\n";
 
         if (type == 1) {
-
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < shir; j++) {
                     cout << texture << " ";
@@ -95,11 +91,11 @@ int main() {
                 cout << "\n";
             }
         }
-    else if (type == 2) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < shir; j++) {
-                if (i == 0 || i == size - 1 || j == 0 || j == shir - 1) {
-                    cout << texture << " ";
+        else if (type == 2) {
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < shir; j++) {
+                    if (i == 0 || i == size - 1 || j == 0 || j == shir - 1) {
+                        cout << texture << " ";
                     }
                     else {
                         cout << "  ";
@@ -110,6 +106,27 @@ int main() {
         }
     }
 
+    else if (choice == 4) {
+        cout << "\n\nФигура: \"Крест\"\n\n";
+        cout << "Размер (нечетное число): ";
+        cin >> size;
+        cout << "Текстура: ";
+        cin >> texture;
+
+        cout << "\n\nРезультат:\n\n";
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if ((i == j) || ((size - 1 - i) == j)) {
+                    cout << texture << " ";
+                }
+                else {
+                    cout << "  ";
+                }
+            }
+            cout << "\n";
+        }
+    }
+
     return 0;
 }
-        
