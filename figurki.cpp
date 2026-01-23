@@ -13,7 +13,8 @@ int main() {
     cout << "1) Линия\n";
     cout << "2) Квадрат\n";
     cout << "3) Прямоугольник\n";
-    cout << "4) Крест\n\n";
+    cout << "4) Крест\n";
+    cout << "5) Плюс\n\n";
     cout << "Выберите фигуру: ";
     cin >> choice;
 
@@ -126,7 +127,26 @@ int main() {
             }
             cout << "\n";
         }
-    }
 
+    }
+    else if (choice == 5) {
+        cout << "\n\nФигура: \"Плюс\"\n\n";
+        cout << "Размер (нечётное число): ";
+        cin >> size;
+        cout << "Текстура: ";
+        cin >> texture;
+
+        cout << "\n\nРезультат:\n\n";
+
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
+                if (j == size / 2 || i == size / 2)
+                    cout << texture << " ";
+                else
+                    cout << "  ";
+            }
+            cout << endl;
+        }
+    }
     return 0;
 }
