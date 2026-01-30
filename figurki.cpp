@@ -14,7 +14,9 @@ int main() {
     cout << "2) Квадрат\n";
     cout << "3) Прямоугольник\n";
     cout << "4) Крест\n";
-    cout << "5) Плюс\n\n";
+    cout << "5) Плюс\n";
+    cout << "6) Квадрат 1/4\n";
+    cout << "7) Квадрат цветной 4/4\n\n";
     cout << "Выберите фигуру: ";
     cin >> choice;
 
@@ -148,5 +150,62 @@ int main() {
             cout << endl;
         }
     }
+    else if (choice == 6) {
+        cout << "\nРазмер: ";
+        cin >> size;
+        cout << "Текстура:";
+        cin >> texture;
+        for (int i = 0; i < size; i++) { 
+            for (int j = 0; j < size; j++) { 
+                if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                    cout << texture << " ";
+                }                
+                else if (j == size / 2 || i == size / 2)
+                    cout << texture << " ";
+                else if (i >= size / 2 && j >= size / 2) {
+                    cout << texture << " ";
+                }
+                                    else {
+                        cout << "  ";
+                    }
+
+            }
+            cout << "\n";
+        }
+    }
+    else if (choice == 7) {
+        cout << "\nРазмер: ";
+        cin >> size;
+        cout << "Текстура стен:";
+        cin >> texture;
+        for (int i = 0; i < size; i++) { 
+            for (int j = 0; j < size; j++) { 
+                if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                    cout << texture << " ";
+                }
+                else if (j == size / 2 || i == size / 2)
+                    cout << texture << " ";
+                else if (i >= size / 2 && j >= size / 2) {
+                    cout << "\x1b[91m#\x1b[0m" << " ";
+                }
+                else if (i <= size / 2 && j <= size / 2) {
+                    cout << "\x1b[92m#\x1b[0m" << " ";
+                }
+                else if (i <= size / 2 && j >= size / 2) {
+                    cout << "\x1b[93m#\x1b[0m" << " ";
+                }
+                else if (i >= size / 2 && j <= size / 2) {
+                    cout << "\x1b[94m#\x1b[0m" << " ";
+                }
+
+                else {
+                    cout << "  ";
+                }
+
+            }
+            cout << "\n";
+        }
+        }
+    
     return 0;
 }
