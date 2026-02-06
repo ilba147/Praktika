@@ -151,61 +151,90 @@ int main() {
         }
     }
     else if (choice == 6) {
+        cout << "1) Заполненный\n";
+        cout << "2) Пустой\n\n";
+        cout << "Выберите тип: ";
+        cin >> type;
         cout << "\nРазмер: ";
         cin >> size;
         cout << "Текстура:";
-        cin >> texture;
-        for (int i = 0; i < size; i++) { 
-            for (int j = 0; j < size; j++) { 
-                if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
-                    cout << texture << " ";
-                }                
-                else if (j == size / 2 || i == size / 2)
-                    cout << texture << " ";
-                else if (i >= size / 2 && j >= size / 2) {
-                    cout << texture << " ";
-                }
-                                    else {
+        cin >> texture;       
+        if (type == 1) {
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                        cout << texture << " ";
+                    }
+                    else if (j == size / 2 || i == size / 2)
+                        cout << texture << " ";
+                    else if (i >= size / 2 && j >= size / 2) {
+                        cout << texture << " ";
+                    }
+                    else {
                         cout << "  ";
                     }
 
+                }
+                cout << "\n";
             }
-            cout << "\n";
         }
+        if (type == 2) {
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (i == size - 1 && j >= size / 2) {
+                        cout << texture << " ";
+                    }
+                    else if (j == size - 1 && i >= size / 2) {
+                        cout << texture << " ";
+                    }
+                    else if (i >= size / 2 && j >= size / 2) {
+                        if (i == size / 2 || j == size - 1 || j == size / 2 || j == size - 1) {
+                            cout << texture << " ";
+
+                        }
+                        else {
+                            cout << "  ";
+                        }
+                    }
+                    cout << "\n";
+                }
+            }
+        }
+        else if (choice == 7) {
+            cout << "\nРазмер: ";
+            cin >> size;
+            cout << "Текстура стен:";
+            cin >> texture;
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                        cout << texture << " ";
+                    }
+                    else if (j == size / 2 || i == size / 2)
+                        cout << texture << " ";
+                    else if (i >= size / 2 && j >= size / 2) {
+                        cout << "\x1b[91m#\x1b[0m" << " ";
+                    }
+                    else if (i <= size / 2 && j <= size / 2) {
+                        cout << "\x1b[92m#\x1b[0m" << " ";
+                    }
+                    else if (i <= size / 2 && j >= size / 2) {
+                        cout << "\x1b[93m#\x1b[0m" << " ";
+                    }
+                    else if (i >= size / 2 && j <= size / 2) {
+                        cout << "\x1b[94m#\x1b[0m" << " ";
+                    }
+
+                    else {
+                        cout << "  ";
+                    }
+
+                }
+                cout << "\n";
+            }
+        }
+
+
+        return 0;
     }
-    else if (choice == 7) {
-        cout << "\nРазмер: ";
-        cin >> size;
-        cout << "Текстура стен:";
-        cin >> texture;
-        for (int i = 0; i < size; i++) { 
-            for (int j = 0; j < size; j++) { 
-                if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
-                    cout << texture << " ";
-                }
-                else if (j == size / 2 || i == size / 2)
-                    cout << texture << " ";
-                else if (i >= size / 2 && j >= size / 2) {
-                    cout << "\x1b[91m#\x1b[0m" << " ";
-                }
-                else if (i <= size / 2 && j <= size / 2) {
-                    cout << "\x1b[92m#\x1b[0m" << " ";
-                }
-                else if (i <= size / 2 && j >= size / 2) {
-                    cout << "\x1b[93m#\x1b[0m" << " ";
-                }
-                else if (i >= size / 2 && j <= size / 2) {
-                    cout << "\x1b[94m#\x1b[0m" << " ";
-                }
-
-                else {
-                    cout << "  ";
-                }
-
-            }
-            cout << "\n";
-        }
-        }
-    
-    return 0;
 }
