@@ -18,7 +18,8 @@ int main() {
     cout << "6) Квадрат 1/4\n";
     cout << "7) Квадрат цветной 4/4\n";
     cout << "8) Треугольник\n";
-    cout << "9) Решётка\n\n";
+    cout << "9) Решётка\n";
+    cout << "10) Ромб (кривой)\n\n";
     cout << "Выберите фигуру: ";
     cin >> choice;
 
@@ -181,12 +182,12 @@ int main() {
             for (int j = 0; j < size; j++) {
                 bool bigbob = (i >= size / 2 && j >= size / 2);
 
-                if (type == 1) { 
+                if (type == 1) {
                     if (bigbob) {
                         cout << texture << " ";
                     }
                     else {
-                        cout << ". "; 
+                        cout << ". ";
                     }
                 }
                 else if (type == 2) {
@@ -200,10 +201,10 @@ int main() {
             }
             cout << "\n";
         }
-        }
+    }
 
-                    
- 
+
+
     else if (choice == 7) {
         cout << "\nРазмер: ";
         cin >> size;
@@ -259,7 +260,7 @@ int main() {
                         cout << texture << " ";
                     }
                     else {
-                        cout << "  ";
+                        cout << " ";
                     }
                 }
             }
@@ -277,9 +278,9 @@ int main() {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if ((i + j) % 2 != 0) {                
+                if ((i + j) % 2 != 0) {
                     cout << texture << " ";
-                    }
+                }
                 else if (i % 2 != 0) {
                     cout << texture << " ";
                 }
@@ -290,5 +291,26 @@ int main() {
             cout << endl;
         }
     }
-        return 0;
+    else if (choice == 10) {
+        cout << "\n\nФигура: \"Решётка\"\n\n";
+        cout << "Размер (нечетное число): ";
+        cin >> size;
+        cout << "Текстура: ";
+        cin >> texture;
+        cout << "\n\nРезультат:\n\n";
+
+        int mid = size / 2;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (abs(i - mid) + abs(j - mid) <= mid) {
+                    cout << texture << " ";
+                }
+                else {
+                    cout << " ";
+                    }
+                }
+             cout << endl;
+        }
     }
+    return 0;
+}
