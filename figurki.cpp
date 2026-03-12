@@ -19,7 +19,8 @@ int main() {
     cout << "7) Квадрат цветной 4/4\n";
     cout << "8) Треугольник\n";
     cout << "9) Решётка\n";
-    cout << "10) Ромб\n\n";
+    cout << "10) Ромб\n";
+    cout << "11) Змея\n\n";
     cout << "Выберите фигуру: ";
     cin >> choice;
 
@@ -326,15 +327,15 @@ int main() {
                 if (i % 2 == 0) {
                     cout << texture << " ";
                 }
-                else if (i % 4 == 1 and j == size - (size - 1)) {
+                else if (i % 4 == 1 and j == size - 1) {
                     cout << texture << " ";
                 }
                 else if (i % 4 == 3 and j == 0) {
-                    cout << "#" << " ";
+                    cout << texture << " ";
                 }
-                
+
                 else {
-                    cout << ".";
+                    cout << ". ";
                 }
             }
             cout << "\n";
