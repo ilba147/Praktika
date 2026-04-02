@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <algorithm>
+#include <Windows.h>
 
 using namespace std;
 
@@ -126,7 +127,8 @@ void showSettings(GameSettings& settings) {
 }
 
 int main() {
-    setlocale(0, "");
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
     srand(time(0));
     GameSettings settings;
     int choice;
