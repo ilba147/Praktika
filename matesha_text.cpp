@@ -9,13 +9,11 @@
 
 using namespace std;
 
-// Структура для игрока в таблице лидеров
 struct PlayerScore {
     string name;
     int score;
 };
 
-// Сортировка: сначала самые высокие баллы
 bool compareScores(const PlayerScore& a, const PlayerScore& b) {
     return a.score > b.score;
 }
@@ -24,6 +22,8 @@ enum OpType { ADD, SUB, MUL, DIV, MIX };
 
 struct GameSettings {
     OpType op = ADD;
+    int difficulty = 1;
+
     string getOpName() {
         switch (op) {
         case ADD: return "Сложение (+)";
@@ -36,7 +36,6 @@ struct GameSettings {
     }
 };
 
-// Функция сохранения в файл
 void saveScore(string name, int score) {
     ofstream file("leaderboard.txt", ios::app);
     if (file.is_open()) {
@@ -45,7 +44,6 @@ void saveScore(string name, int score) {
     }
 }
 
-// Функция отображения таблицы
 void showLeaderboard() {
     ifstream file("leaderboard.txt");
     vector<PlayerScore> scores;
@@ -79,25 +77,60 @@ void startGame(GameSettings& settings) {
     cout << "\n--- ИГРА НАЧАЛАСЬ! ---" << endl;
 
     while (errors < MAX_ERRORS) {
-        int a = rand() % 100 + 1;
-        int b = rand() % 100 + 1;
+        int a, b;
+        
+        if (settings.difficulty == 1) {
+            a = rand() % 9 + 1;
+            b = rand() % 9 + 1;
+        } else if (settings.difficulty == 2) {
+            a = rand() % 90 + 10;
+            b = rand() % 90 + 10;
+        } else {
+            a = rand() % 900 + 100;
+            b = rand() % 900 + 100;
+        }
+
         OpType currentOp = (settings.op == MIX) ? static_cast<OpType>(rand() % 4) : settings.op;
 
         int correctAnswer;
         char opChar;
 
         switch (currentOp) {
-        case ADD: correctAnswer = a + b; opChar = '+'; break;
-        case SUB: if (a < b) swap(a, b); correctAnswer = a - b; opChar = '-'; break;
-        case MUL: a = rand() % 12 + 1; b = rand() % 12 + 1; correctAnswer = a * b; opChar = '*'; break;
-        case DIV: b = rand() % 10 + 1; a = b * (rand() % 10 + 1); correctAnswer = a / b; opChar = '/'; break;
+        case ADD: 
+            correctAnswer = a + b; 
+            opChar = '+'; 
+            break;
+        case SUB: 
+            if (a < b) swap(a, b); 
+            correctAnswer = a - b; 
+            opChar = '-'; 
+            break;
+        case MUL: 
+            if (settings.difficulty == 2) b = rand() % 9 + 1;
+            if (settings.difficulty == 3) b = rand() % 90 + 10;
+            correctAnswer = a * b; 
+            opChar = '*'; 
+            break;
+        case DIV: 
+        {
+            int multiplier;
+            if (settings.difficulty == 1) multiplier = rand() % 9 + 1;
+            else if (settings.difficulty == 2) multiplier = rand() % 20 + 1;
+            else multiplier = rand() % 50 + 1;
+
+            a = b * multiplier;
+            correctAnswer = a / b;
+            opChar = '/'; 
+            break;
+        }
         }
 
         cout << a << " " << opChar << " " << b << " = ";
         int userAnswer;
-        if (!(cin >> userAnswer)) { // Защита от ввода букв
+        if (!(cin >> userAnswer)) {
             cin.clear();
             cin.ignore(10000, '\n');
+            cout << "Пожалуйста, введите число!\n";
             continue;
         }
 
@@ -118,12 +151,26 @@ void startGame(GameSettings& settings) {
     saveScore(name, correct);
 }
 
-void showSettings(GameSettings& settings) {
-    cout << "\n--- Настройки ---" << endl;
+void showOpSettings(GameSettings& settings) {
+    cout << "\n--- Настройки операции ---" << endl;
     cout << "1. Сложение\n2. Вычитание\n3. Умножение\n4. Деление\n5. Микс\nВыбор: ";
     int choice;
-    cin >> choice;
-    if (choice >= 1 && choice <= 5) settings.op = static_cast<OpType>(choice - 1);
+    if (cin >> choice && choice >= 1 && choice <= 5) {
+        settings.op = static_cast<OpType>(choice - 1);
+    } else {
+        cin.clear(); cin.ignore(10000, '\n');
+    }
+}
+
+void showDifficultySettings(GameSettings& settings) {
+    cout << "\n--- Выбор сложности ---" << endl;
+    cout << "1. Легкая (1-9)\n2. Средняя (10-99)\n3. Сложная (100-999)\nВыбор: ";
+    int choice;
+    if (cin >> choice && choice >= 1 && choice <= 3) {
+        settings.difficulty = choice;
+    } else {
+        cin.clear(); cin.ignore(10000, '\n');
+    }
 }
 
 int main() {
@@ -134,14 +181,26 @@ int main() {
     int choice;
 
     while (true) {
-        cout << "\n1. Начать игру\n2. Настройки (" << settings.getOpName() << ")\n3. Таблица лидеров\n4. Выход\n>>> ";
-        if (!(cin >> choice)) break;
+        cout << "\n=== ГЛАВНОЕ МЕНЮ ===" << endl;
+        cout << "1. Начать игру\n";
+        cout << "2. Тип примеров (" << settings.getOpName() << ")\n";
+        cout << "3. Уровень сложности (Уровень " << settings.difficulty << ")\n";
+        cout << "4. Таблица лидеров\n";
+        cout << "5. Выход\n>>> ";
+        
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
 
         switch (choice) {
         case 1: startGame(settings); break;
-        case 2: showSettings(settings); break;
-        case 3: showLeaderboard(); break;
-        case 4: return 0;
+        case 2: showOpSettings(settings); break;
+        case 3: showDifficultySettings(settings); break;
+        case 4: showLeaderboard(); break;
+        case 5: return 0;
+        default: cout << "Неверный ввод!\n"; break;
         }
     }
     return 0;
