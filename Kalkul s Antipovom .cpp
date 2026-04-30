@@ -4,13 +4,14 @@
 using namespace std;
 
 int main() {
-    // Включаем поддержку русского языка в консоли
-    setlocale(LC_ALL, "Russian");
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
+    srand(time(0));
 
     const int SIZE = 5;
     double arr[SIZE];
 
-    // Инициализация массива пользователем (Требование 2)
+ 
     cout << "--- Инициализация массива ---" << endl;
     cout << "Введите " << SIZE << " чисел для заполнения массива:\n";
     for (int i = 0; i < SIZE; i++) {
@@ -19,49 +20,52 @@ int main() {
     }
     cout << "\n";
 
-    // Вывод всех 5-ти таблиц (Требование 3)
-    // Внешний цикл перебирает элементы массива
+  
     for (int i = 0; i < SIZE; i++) {
         double num = arr[i];
 
-        // Заголовок таблицы
+        
         cout << " | Таблица: " << i + 1 << "\n";
         cout << " -----------------------------------------------------\n";
         cout << " |     Число     |       Пример        |  Результат  |\n";
         cout << " -----------------------------------------------------\n";
 
-        // Отдельный цикл for для вывода содержимого текущей таблицы (Требование 1)
+      
         for (int j = 0; j < 4; j++) {
             double result = 0;
             char op = '+';
 
-            // Условия для корректного отображения операций внутри цикла
+         
             if (j == 0) {
                 result = num + num;
                 op = '+';
-            } else if (j == 1) {
+            }
+            else if (j == 1) {
                 result = num - num;
                 op = '-';
-            } else if (j == 2) {
+            }
+            else if (j == 2) {
                 if (num != 0) {
                     result = num / num;
-                } else {
-                    result = 0; // Защита от деления на ноль
+                }
+                else {
+                    result = 0; 
                 }
                 op = '/';
-            } else if (j == 3) {
+            }
+            else if (j == 3) {
                 result = num * num;
                 op = '*';
             }
 
-            // Форматированный вывод одной строки
-            cout << " | " << setw(7) << num << "       | " 
-                 << setw(6) << num << " " << op << " " << left << setw(7) << num << right 
-                 << " | " << setw(5) << result << "       |\n";
             
+            cout << " | " << setw(7) << num << "       | "
+                << setw(6) << num << " " << op << " " << left << setw(7) << num << right
+                << " | " << setw(5) << result << "       |\n";
+
             cout << " -----------------------------------------------------\n";
         }
-        cout << "\n"; // Пустая строка между таблицами
+        cout << "\n";
     }
 
     return 0;
